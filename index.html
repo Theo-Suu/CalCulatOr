@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-container">
+    <div class="calculator">
+      <div class="calculator-header">
+        <h1>Calculator</h1>
+        <p>Simple calculator with premium unlock</p>
+      </div>
+
+      <div class="display">
+        <div id="expression" class="expression"></div>
+        <div id="result" class="result">0</div>
+      </div>
+
+      <div class="buttons">
+        <button class="btn control" data-action="clear">AC</button>
+        <button class="btn control" data-action="delete">DEL</button>
+        <button class="btn operator" data-value="%">%</button>
+        <button class="btn operator" data-value="/">÷</button>
+
+        <button class="btn number" data-value="7">7</button>
+        <button class="btn number" data-value="8">8</button>
+        <button class="btn number" data-value="9">9</button>
+        <button class="btn operator" data-value="*">×</button>
+
+        <button class="btn number" data-value="4">4</button>
+        <button class="btn number" data-value="5">5</button>
+        <button class="btn number" data-value="6">6</button>
+        <button class="btn operator" data-value="-">−</button>
+
+        <button class="btn number" data-value="1">1</button>
+        <button class="btn number" data-value="2">2</button>
+        <button class="btn number" data-value="3">3</button>
+        <button class="btn operator" data-value="+">+</button>
+
+        <button class="btn number zero" data-value="0">0</button>
+        <button class="btn number" data-value=".">.</button>
+        <button class="btn equal" data-action="calculate">=</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="premiumModal" class="modal-overlay hidden">
+    <div class="modal">
+      <button id="closeModal" class="close-btn">&times;</button>
+
+      <div class="modal-icon">★</div>
+
+      <h2>Upgrade to Premium</h2>
+      <p class="modal-text">
+        You have used the calculation feature. Subscribe to unlock unlimited premium calculations.
+      </p>
+
+      <div class="price-card">
+        <span class="price">$9.99</span>
+        <span class="period">/ month</span>
+      </div>
+
+      <button class="subscribe-btn">Recharge Now</button>
+      <button id="laterBtn" class="later-btn">Maybe Later</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
