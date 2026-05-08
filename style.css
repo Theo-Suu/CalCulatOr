@@ -8,8 +8,8 @@ body {
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(255, 189, 107, 0.22), transparent 35%),
-    linear-gradient(135deg, #f5f6fa, #dfe5f2);
+    radial-gradient(circle at top left, rgba(255, 189, 107, 0.13), transparent 34%),
+    linear-gradient(135deg, #f7f8fb, #e9edf5);
   color: #1f1f28;
 }
 
@@ -26,8 +26,8 @@ body {
   padding: 24px;
   border-radius: 28px;
   background: #ffffff;
-  box-shadow: 0 22px 60px rgba(35, 39, 70, 0.18);
-  border: 1px solid rgba(75, 78, 112, 0.12);
+  box-shadow: 0 20px 55px rgba(44, 48, 78, 0.13);
+  border: 1px solid rgba(75, 78, 112, 0.08);
 }
 
 .calculator-header {
@@ -36,13 +36,8 @@ body {
 
 .calculator-header h1 {
   font-size: 28px;
-  color: #4B4E70;
+  color: #555877;
   margin-bottom: 4px;
-}
-
-.calculator-header p {
-  font-size: 13px;
-  color: #7b7f95;
 }
 
 .display {
@@ -50,7 +45,7 @@ body {
   padding: 18px;
   margin-bottom: 20px;
   border-radius: 22px;
-  background: linear-gradient(135deg, #4B4E70, #30334f);
+  background: linear-gradient(135deg, #555877, #454866);
   color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -61,7 +56,7 @@ body {
 .expression {
   min-height: 24px;
   font-size: 18px;
-  color: #d8dbea;
+  color: #e4e6f0;
   text-align: right;
   word-break: break-all;
 }
@@ -70,7 +65,7 @@ body {
   font-size: 40px;
   font-weight: 700;
   text-align: right;
-  color: #FFBD6B;
+  color: #f2b66d;
   word-break: break-all;
 }
 
@@ -88,13 +83,13 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: 0.18s ease;
-  background: #f0f2f8;
-  color: #2d3048;
+  background: #f3f4f8;
+  color: #24263a;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(75, 78, 112, 0.16);
+  box-shadow: 0 8px 18px rgba(75, 78, 112, 0.12);
 }
 
 .btn:active {
@@ -103,22 +98,22 @@ body {
 }
 
 .number {
-  background: #f6f7fb;
+  background: #f5f6fa;
   color: #202238;
 }
 
 .operator {
-  background: #e8ecf8;
-  color: #4B4E70;
+  background: #e8ecf6;
+  color: #555877;
 }
 
 .control {
-  background: #f7e7d2;
-  color: #b06b1b;
+  background: #f5e7d5;
+  color: #9d661d;
 }
 
 .equal {
-  background: linear-gradient(135deg, #FFBD6B, #f39c42);
+  background: linear-gradient(135deg, #f2b66d, #eaa04f);
   color: #ffffff;
 }
 
