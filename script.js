@@ -1,175 +1,267 @@
-const expressionDisplay = document.getElementById("expression");
-const resultDisplay = document.getElementById("result");
-const buttons = document.querySelectorAll(".btn");
-
-const premiumModal = document.getElementById("premiumModal");
-const closeModal = document.getElementById("closeModal");
-const laterBtn = document.getElementById("laterBtn");
-
-let currentExpression = "";
-
-buttons.forEach((button) => {
-  button.addEventListener("click", () => {
-    const value = button.dataset.value;
-    const action = button.dataset.action;
-
-    if (action === "clear") {
-      clearCalculator();
-      return;
-    }
-
-    if (action === "delete") {
-      deleteLastCharacter();
-      return;
-    }
-
-    if (action === "calculate") {
-      calculateResult();
-      return;
-    }
-
-    if (value) {
-      addToExpression(value);
-    }
-  });
-});
-
-function addToExpression(value) {
-  const lastChar = currentExpression.slice(-1);
-
-  if (value === ".") {
-    const lastNumber = currentExpression.split(/[\+\-\*\/%]/).pop();
-
-    if (lastNumber.includes(".")) {
-      return;
-    }
-  }
-
-  if (isOperator(value) && currentExpression === "") {
-    if (value !== "-") {
-      return;
-    }
-  }
-
-  if (isOperator(value) && isOperator(lastChar)) {
-    currentExpression = currentExpression.slice(0, -1) + value;
-  } else {
-    currentExpression += value;
-  }
-
-  updateDisplay();
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-function calculateResult() {
-  if (currentExpression.trim() === "") {
-    return;
+body {
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 189, 107, 0.13), transparent 34%),
+    linear-gradient(135deg, #f7f8fb, #e9edf5);
+  color: #1f1f28;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.calculator {
+  width: 360px;
+  padding: 24px;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 20px 55px rgba(44, 48, 78, 0.13);
+  border: 1px solid rgba(75, 78, 112, 0.08);
+}
+
+.calculator-header {
+  margin-bottom: 18px;
+}
+
+.calculator-header h1 {
+  font-size: 28px;
+  color: #555877;
+  margin-bottom: 4px;
+}
+
+.display {
+  min-height: 110px;
+  padding: 18px;
+  margin-bottom: 20px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #555877, #454866);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.expression {
+  min-height: 24px;
+  font-size: 18px;
+  color: #e4e6f0;
+  text-align: right;
+  word-break: break-all;
+}
+
+.result {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: right;
+  color: #f2b66d;
+  word-break: break-all;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.btn {
+  height: 62px;
+  border: none;
+  border-radius: 18px;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.18s ease;
+  background: #f3f4f8;
+  color: #24263a;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(75, 78, 112, 0.12);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.number {
+  background: #f5f6fa;
+  color: #202238;
+}
+
+.operator {
+  background: #e8ecf6;
+  color: #555877;
+}
+
+.control {
+  background: #f5e7d5;
+  color: #9d661d;
+}
+
+.equal {
+  background: linear-gradient(135deg, #f2b66d, #eaa04f);
+  color: #ffffff;
+}
+
+.zero {
+  grid-column: span 2;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(25, 27, 42, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: relative;
+  width: 360px;
+  padding: 32px 28px 28px;
+  border-radius: 28px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+  animation: popUp 0.25s ease;
+}
+
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
   }
 
-  try {
-    if (!isValidExpression(currentExpression)) {
-      throw new Error("Invalid expression");
-    }
-
-    const result = Function(`"use strict"; return (${currentExpression})`)();
-
-    if (!Number.isFinite(result)) {
-      throw new Error("Invalid calculation");
-    }
-
-    const formattedResult = formatResult(result);
-
-    expressionDisplay.textContent = currentExpression;
-    resultDisplay.textContent = formattedResult;
-    currentExpression = String(formattedResult);
-
-    showPremiumModal();
-  } catch (error) {
-    resultDisplay.textContent = "Error";
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
 }
 
-function clearCalculator() {
-  currentExpression = "";
-  expressionDisplay.textContent = "";
-  resultDisplay.textContent = "0";
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: #f0f2f8;
+  color: #4B4E70;
+  font-size: 24px;
+  cursor: pointer;
 }
 
-function deleteLastCharacter() {
-  currentExpression = currentExpression.slice(0, -1);
-  updateDisplay();
+.modal-icon {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFBD6B, #f39c42);
+  color: #ffffff;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(255, 189, 107, 0.48);
 }
 
-function updateDisplay() {
-  expressionDisplay.textContent = currentExpression;
-  resultDisplay.textContent = currentExpression || "0";
+.modal h2 {
+  font-size: 26px;
+  color: #4B4E70;
+  margin-bottom: 10px;
 }
 
-function isOperator(char) {
-  return ["+", "-", "*", "/", "%"].includes(char);
+.modal-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6f7284;
+  margin-bottom: 20px;
 }
 
-function isValidExpression(expression) {
-  const validCharacters = /^[0-9+\-*/%.() ]+$/;
-
-  if (!validCharacters.test(expression)) {
-    return false;
-  }
-
-  const lastChar = expression.trim().slice(-1);
-
-  if (["+", "-", "*", "/", "%", "."].includes(lastChar)) {
-    return false;
-  }
-
-  return true;
+.price-card {
+  margin: 18px 0;
+  padding: 16px;
+  border-radius: 18px;
+  background: #f6f7fb;
+  border: 1px solid rgba(75, 78, 112, 0.12);
 }
 
-function formatResult(number) {
-  if (Number.isInteger(number)) {
-    return number;
-  }
-
-  return parseFloat(number.toFixed(8));
+.price {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1f2235;
 }
 
-function showPremiumModal() {
-  premiumModal.classList.remove("hidden");
+.period {
+  font-size: 15px;
+  color: #777b92;
 }
 
-function hidePremiumModal() {
-  premiumModal.classList.add("hidden");
+.subscribe-btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #4B4E70, #2f324f);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
 }
 
-closeModal.addEventListener("click", hidePremiumModal);
-laterBtn.addEventListener("click", hidePremiumModal);
+.subscribe-btn:hover {
+  box-shadow: 0 10px 24px rgba(75, 78, 112, 0.28);
+}
 
-premiumModal.addEventListener("click", (event) => {
-  if (event.target === premiumModal) {
-    hidePremiumModal();
-  }
-});
+.later-btn {
+  width: 100%;
+  margin-top: 12px;
+  border: none;
+  background: transparent;
+  color: #7a7d91;
+  font-size: 14px;
+  cursor: pointer;
+}
 
-document.addEventListener("keydown", (event) => {
-  const key = event.key;
+.later-btn:hover {
+  color: #4B4E70;
+}
 
-  if (!isNaN(key)) {
-    addToExpression(key);
-  }
-
-  if (["+", "-", "*", "/", "%", "."].includes(key)) {
-    addToExpression(key);
-  }
-
-  if (key === "Enter") {
-    calculateResult();
-  }
-
-  if (key === "Backspace") {
-    deleteLastCharacter();
+@media (max-width: 420px) {
+  .calculator,
+  .modal {
+    width: 100%;
   }
 
-  if (key === "Escape") {
-    clearCalculator();
-    hidePremiumModal();
+  .btn {
+    height: 56px;
+    font-size: 19px;
   }
-});
+
+  .result {
+    font-size: 34px;
+  }
+}
