@@ -8,8 +8,8 @@ body {
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   background:
-    radial-gradient(circle at top left, rgba(255, 189, 107, 0.13), transparent 34%),
-    linear-gradient(135deg, #f7f8fb, #e9edf5);
+    radial-gradient(circle at top left, rgba(255, 189, 107, 0.08), transparent 34%),
+    linear-gradient(135deg, #eef1f6, #dfe5ef);
   color: #1f1f28;
 }
 
@@ -25,8 +25,8 @@ body {
   width: 360px;
   padding: 24px;
   border-radius: 28px;
-  background: #ffffff;
-  box-shadow: 0 20px 55px rgba(44, 48, 78, 0.13);
+  background: #e7eaf1;
+  box-shadow: 0 20px 55px rgba(44, 48, 78, 0.14);
   border: 1px solid rgba(75, 78, 112, 0.08);
 }
 
@@ -36,7 +36,7 @@ body {
 
 .calculator-header h1 {
   font-size: 28px;
-  color: #555877;
+  color: #4d547c;
   margin-bottom: 4px;
 }
 
@@ -45,8 +45,9 @@ body {
   padding: 18px;
   margin-bottom: 20px;
   border-radius: 22px;
-  background: linear-gradient(135deg, #555877, #454866);
-  color: #ffffff;
+  background: linear-gradient(135deg, #dfe5f0, #d3dbe9);
+  border: 1px solid rgba(77, 84, 124, 0.10);
+  color: #2f3d66;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -56,7 +57,7 @@ body {
 .expression {
   min-height: 24px;
   font-size: 18px;
-  color: #e4e6f0;
+  color: #60709b;
   text-align: right;
   word-break: break-all;
 }
@@ -65,7 +66,7 @@ body {
   font-size: 40px;
   font-weight: 700;
   text-align: right;
-  color: #f2b66d;
+  color: #32456f;
   word-break: break-all;
 }
 
@@ -83,13 +84,13 @@ body {
   font-weight: 700;
   cursor: pointer;
   transition: 0.18s ease;
-  background: #f3f4f8;
-  color: #24263a;
+  background: #f5f7fb;
+  color: #32456f;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(75, 78, 112, 0.12);
+  box-shadow: 0 8px 18px rgba(75, 78, 112, 0.10);
 }
 
 .btn:active {
@@ -98,22 +99,22 @@ body {
 }
 
 .number {
-  background: #f5f6fa;
-  color: #202238;
+  background: #f3f5f9;
+  color: #32456f;
 }
 
 .operator {
-  background: #e8ecf6;
-  color: #555877;
+  background: #e8edf6;
+  color: #4f5e86;
 }
 
 .control {
-  background: #f5e7d5;
-  color: #9d661d;
+  background: #efe2d0;
+  color: #af7122;
 }
 
 .equal {
-  background: linear-gradient(135deg, #f2b66d, #eaa04f);
+  background: linear-gradient(135deg, #f1b15c, #e79f4a);
   color: #ffffff;
 }
 
@@ -121,6 +122,7 @@ body {
   grid-column: span 2;
 }
 
+/* premium modal 保持原风格 */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -152,7 +154,6 @@ body {
     opacity: 0;
     transform: scale(0.92) translateY(12px);
   }
-
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
