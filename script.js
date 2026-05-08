@@ -7,6 +7,7 @@ const closeModal = document.getElementById("closeModal");
 const laterBtn = document.getElementById("laterBtn");
 
 let currentExpression = "";
+let justEvaluated = false;
 
 buttons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -35,11 +36,23 @@ buttons.forEach((button) => {
 });
 
 function addToExpression(value) {
+  if (resultDisplay.textContent === "Error") {
+    currentExpression = "";
+    expressionDisplay.textContent = "";
+    resultDisplay.textContent = "0";
+  }
+
+  if (justEvaluated) {
+    currentExpression = "";
+    expressionDisplay.textContent = "";
+    resultDisplay.textContent = "0";
+    justEvaluated = false;
+  }
+
   const lastChar = currentExpression.slice(-1);
 
   if (value === ".") {
     const lastNumber = currentExpression.split(/[\+\-\*\/%]/).pop();
-
     if (lastNumber.includes(".")) {
       return;
     }
@@ -61,27 +74,43 @@ function addToExpression(value) {
 }
 
 function calculateResult() {
-  if (currentExpression.trim() === "") {
+  const exp = currentExpression.trim();
+
+  if (exp === "") {
     return;
   }
 
+  hidePremiumModal();
+
   try {
-    if (!isValidExpression(currentExpression)) {
+    if (!isValidExpression(exp)) {
       throw new Error("Invalid expression");
     }
 
-    const result = Function(`"use strict"; return (${currentExpression})`)();
+    const result = Function(`"use strict"; return (${exp})`)();
 
     if (!Number.isFinite(result)) {
       throw new Error("Invalid calculation");
     }
 
-    expressionDisplay.textContent = currentExpression;
-    resultDisplay.textContent = currentExpression;
+    const normalized = normalizeExpression(exp);
 
+    if (normalized === "1+1") {
+      expressionDisplay.textContent = exp;
+      resultDisplay.textContent = "2";
+      currentExpression = "2";
+      justEvaluated = true;
+      return;
+    }
+
+    expressionDisplay.textContent = "";
+    resultDisplay.textContent = exp;
     showPremiumModal();
+    justEvaluated = false;
   } catch (error) {
+    expressionDisplay.textContent = "";
     resultDisplay.textContent = "Error";
+    justEvaluated = false;
   }
 }
 
@@ -89,9 +118,21 @@ function clearCalculator() {
   currentExpression = "";
   expressionDisplay.textContent = "";
   resultDisplay.textContent = "0";
+  justEvaluated = false;
+  hidePremiumModal();
 }
 
 function deleteLastCharacter() {
+  if (resultDisplay.textContent === "Error") {
+    clearCalculator();
+    return;
+  }
+
+  if (justEvaluated) {
+    clearCalculator();
+    return;
+  }
+
   currentExpression = currentExpression.slice(0, -1);
   updateDisplay();
 }
@@ -105,6 +146,10 @@ function isOperator(char) {
   return ["+", "-", "*", "/", "%"].includes(char);
 }
 
+function normalizeExpression(expression) {
+  return expression.replace(/\s+/g, "");
+}
+
 function isValidExpression(expression) {
   const validCharacters = /^[0-9+\-*/%.() ]+$/;
 
@@ -112,7 +157,8 @@ function isValidExpression(expression) {
     return false;
   }
 
-  const lastChar = expression.trim().slice(-1);
+  const trimmed = expression.trim();
+  const lastChar = trimmed.slice(-1);
 
   if (["+", "-", "*", "/", "%", "."].includes(lastChar)) {
     return false;
@@ -159,6 +205,5 @@ document.addEventListener("keydown", (event) => {
 
   if (key === "Escape") {
     clearCalculator();
-    hidePremiumModal();
   }
 });
