@@ -1,0 +1,272 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(255, 189, 107, 0.22), transparent 35%),
+    linear-gradient(135deg, #f5f6fa, #dfe5f2);
+  color: #1f1f28;
+}
+
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.calculator {
+  width: 360px;
+  padding: 24px;
+  border-radius: 28px;
+  background: #ffffff;
+  box-shadow: 0 22px 60px rgba(35, 39, 70, 0.18);
+  border: 1px solid rgba(75, 78, 112, 0.12);
+}
+
+.calculator-header {
+  margin-bottom: 18px;
+}
+
+.calculator-header h1 {
+  font-size: 28px;
+  color: #4B4E70;
+  margin-bottom: 4px;
+}
+
+.calculator-header p {
+  font-size: 13px;
+  color: #7b7f95;
+}
+
+.display {
+  min-height: 110px;
+  padding: 18px;
+  margin-bottom: 20px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #4B4E70, #30334f);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.expression {
+  min-height: 24px;
+  font-size: 18px;
+  color: #d8dbea;
+  text-align: right;
+  word-break: break-all;
+}
+
+.result {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: right;
+  color: #FFBD6B;
+  word-break: break-all;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.btn {
+  height: 62px;
+  border: none;
+  border-radius: 18px;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.18s ease;
+  background: #f0f2f8;
+  color: #2d3048;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(75, 78, 112, 0.16);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.number {
+  background: #f6f7fb;
+  color: #202238;
+}
+
+.operator {
+  background: #e8ecf8;
+  color: #4B4E70;
+}
+
+.control {
+  background: #f7e7d2;
+  color: #b06b1b;
+}
+
+.equal {
+  background: linear-gradient(135deg, #FFBD6B, #f39c42);
+  color: #ffffff;
+}
+
+.zero {
+  grid-column: span 2;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(25, 27, 42, 0.62);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 100;
+}
+
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: relative;
+  width: 360px;
+  padding: 32px 28px 28px;
+  border-radius: 28px;
+  background: #ffffff;
+  text-align: center;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
+  animation: popUp 0.25s ease;
+}
+
+@keyframes popUp {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: #f0f2f8;
+  color: #4B4E70;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.modal-icon {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFBD6B, #f39c42);
+  color: #ffffff;
+  font-size: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 12px 28px rgba(255, 189, 107, 0.48);
+}
+
+.modal h2 {
+  font-size: 26px;
+  color: #4B4E70;
+  margin-bottom: 10px;
+}
+
+.modal-text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6f7284;
+  margin-bottom: 20px;
+}
+
+.price-card {
+  margin: 18px 0;
+  padding: 16px;
+  border-radius: 18px;
+  background: #f6f7fb;
+  border: 1px solid rgba(75, 78, 112, 0.12);
+}
+
+.price {
+  font-size: 34px;
+  font-weight: 800;
+  color: #1f2235;
+}
+
+.period {
+  font-size: 15px;
+  color: #777b92;
+}
+
+.subscribe-btn {
+  width: 100%;
+  height: 50px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #4B4E70, #2f324f);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.subscribe-btn:hover {
+  box-shadow: 0 10px 24px rgba(75, 78, 112, 0.28);
+}
+
+.later-btn {
+  width: 100%;
+  margin-top: 12px;
+  border: none;
+  background: transparent;
+  color: #7a7d91;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.later-btn:hover {
+  color: #4B4E70;
+}
+
+@media (max-width: 420px) {
+  .calculator,
+  .modal {
+    width: 100%;
+  }
+
+  .btn {
+    height: 56px;
+    font-size: 19px;
+  }
+
+  .result {
+    font-size: 34px;
+  }
+}
